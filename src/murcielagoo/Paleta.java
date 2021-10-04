@@ -144,7 +144,6 @@ public class Paleta extends JFrame implements ActionListener {
 
             figura.closePath();
             g2.rotate(θ);
-            
             g2.scale(Sx, Sy);
 
             g2.fill(figura);
