@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -20,7 +21,7 @@ import java.awt.geom.*;
 public class Paleta extends JFrame implements ActionListener {
     Coor panel;
 
-    int xt, yt, Sy = 1, Sx = 1;
+    int xt = 0, yt = 0, Sy = 1, Sx = 1;
     Double θ = 0.0;
     JMenuBar bar = new JMenuBar();
     JMenu Trasladar, Escalar, Rotar;
@@ -130,7 +131,12 @@ public class Paleta extends JFrame implements ActionListener {
             g2.draw(linea_x);
             g2.draw(linea_y);
 
-            g2.translate(this.getWidth() / 2, this.getHeight() / 2);
+            if (xt == 0 && yt == 0) {
+                g2.translate(this.getWidth()/2, this.getHeight()/2);
+            } else {
+                g2.translate(coord_x(xt) , coord_y(yt));    
+            }
+            
 
             Mu mur = new Mu();
 
@@ -144,10 +150,16 @@ public class Paleta extends JFrame implements ActionListener {
 
             figura.closePath();
             g2.rotate(θ);
-            
+
             g2.scale(Sx, Sy);
 
             g2.fill(figura);
+
+            if (xt > this.getWidth() || yt > this.getHeight()) {
+                xt = 0;
+                yt = 0;
+                JOptionPane.showMessageDialog(null, "Saliste Pantalla ");
+            }
 
         }
     }
